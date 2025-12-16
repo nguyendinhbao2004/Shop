@@ -1,7 +1,8 @@
 
+import { join } from "path";
 import { BaseEntity } from "../../../common/base-entity/base.entity";
 import { category } from "../../../module/category/entity/category.entity";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 
 @Entity('product')
@@ -16,5 +17,6 @@ export class product extends BaseEntity {
     stock: number;
 
     @ManyToOne(() => category)
+    @JoinColumn({ name: 'categoryId' })
     category: category;
 }

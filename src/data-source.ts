@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   host: process.env.DB_HOST || 'localhost',
   port: Number(process.env.DB_PORT) || 1433,
   username: process.env.DB_USERNAME || 'sa',
-  password: process.env.DB_PASSWORD || 'Sa@12345',
+  password: process.env.DB_PASSWORD || '12345',
   database: process.env.DB_DATABASE || 'SaleDb',
   synchronize: false,
   logging: true,
