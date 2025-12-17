@@ -1,8 +1,10 @@
 // src/common/base-repository/repository.ts
+import { Injectable } from '@nestjs/common';
 import { Repository, ObjectLiteral, FindOptionsWhere, FindManyOptions } from 'typeorm';
 
-export abstract class GenericRepository<T extends ObjectLiteral> {
-  protected constructor(
+@Injectable()
+export class GenericRepository<T extends ObjectLiteral> {
+  constructor(
     protected readonly repository: Repository<T>,
   ) {}
 
@@ -32,5 +34,9 @@ export abstract class GenericRepository<T extends ObjectLiteral> {
 
   async delete(id: number): Promise<void> {
     await this.repository.delete(id);
+  }
+
+  async save(data:T): Promise<void> {
+    await this.repository.save;
   }
 }

@@ -1,4 +1,4 @@
-import { CreateDateColumn, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { CreateDateColumn, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 export abstract class BaseEntity{
@@ -7,13 +7,11 @@ export abstract class BaseEntity{
 
     @CreateDateColumn({
         type:'datetime2',
-        default: 'SYSDATETIME()'
     })
     createAt:Date
 
-    @CreateDateColumn({
+    @UpdateDateColumn({
         type:'datetime2',
-        default: 'SYSDATETIME()'
     })
     updateAt:Date
 }

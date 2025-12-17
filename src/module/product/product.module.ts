@@ -5,6 +5,7 @@ import { ProductController } from "./controller/product.controller";
 import { ProductService } from "./service/product.service";
 import { DataSource } from "typeorm";
 import { GenericRepository } from "src/common/base-repository/repository";
+import { timeoutProvider } from "rxjs/internal/scheduler/timeoutProvider";
 
 
 @Module({
@@ -14,6 +15,10 @@ import { GenericRepository } from "src/common/base-repository/repository";
     controllers: [ProductController],
     providers: [
         ProductService,
+        {
+            provide: 'IProduct',
+            useClass: ProductService
+        }
     ],
     exports: [ProductService]
 })
