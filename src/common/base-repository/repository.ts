@@ -12,7 +12,7 @@ export class GenericRepository<T extends ObjectLiteral> {
     return this.repository.find();
   }
 
-  findById(id: number): Promise<T | null> {
+  findById(id: string): Promise<T | null> {
     return this.repository.findOne({
       where: { id } as any,
     });
@@ -27,16 +27,16 @@ export class GenericRepository<T extends ObjectLiteral> {
     return this.repository.save(newEntity);
   }
 
-  async update(id: number, data: Partial<T>): Promise<T | null> {
+  async update(id: string, data: Partial<T>): Promise<T | null> {
     await this.repository.update(id, data);
     return this.findById(id);
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.repository.delete(id);
   }
 
   async save(data:T): Promise<void> {
-    await this.repository.save;
+    await this.repository.save(data);
   }
 }

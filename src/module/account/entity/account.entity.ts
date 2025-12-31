@@ -1,8 +1,13 @@
-import { Role } from "../../../module/role/entity/role.entity";
 import { BaseEntity } from "../../../common/base-entity/base.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { join } from "path";
+import { RefreshToken } from "src/module/refreshtoken/entity/refresh-token.entity";
 
+export enum AccountRole{
+    ADMIN = 'ADMIN',
+  STUDENT = 'STUDENT',
+  TEACHER = 'TEACHER',
+}
 
 @Entity('Accounts')
 export class Account extends BaseEntity{
@@ -11,16 +16,18 @@ export class Account extends BaseEntity{
     @Column({unique: true})
     email:string
 
-    @Column()
+    @Column({select: false})
     passwordHash:string
 
-    @Column()
+    @Column({nullable:true})
     fullName:string
 
     @Column({default:true})
     isActive:boolean
 
-    @ManyToOne(() => Role, (role) => role.acounts)
-    @JoinColumn({name: 'roleId'})
-    role:Role
+    @Column({type:'enum', enum:AccountRole, default:AccountRole.STUDENT})
+    role: AccountRole
+
+    @OneToMany(()=> RefreshToken, (refreshToken) => refreshToken.account)
+    refreshTokens: RefreshToken[]
 }

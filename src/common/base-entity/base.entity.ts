@@ -1,17 +1,22 @@
-import { CreateDateColumn, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  CreateDateColumn,
+  DeleteDateColumn,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
+export abstract class BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-export abstract class BaseEntity{
-    @PrimaryGeneratedColumn('uuid')
-    id:string
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
 
-    @CreateDateColumn({
-        type:'datetime2',
-    })
-    createAt:Date
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
 
-    @UpdateDateColumn({
-        type:'datetime2',
-    })
-    updateAt:Date
+  // Soft Delete: Cực quan trọng trong Enterprise để khôi phục dữ liệu lỡ tay xóa
+  @DeleteDateColumn({ type: 'timestamptz', nullable: true })
+  deletedAt: Date;
 }
